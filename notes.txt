@@ -1,0 +1,65 @@
+url_for's input is the function not the route
+with messages??? context managers???
+
+
+from Intro import db
+db.create_all(), from Intro import User, Post
+user_1 = User(username='Jason',email='leongjason3781@gmail.com',password='password')
+db.session.add(user_1),
+user_2 = User(username='Yean Chee',email='leongjason822@gmail.com',password='password'), db.session.add(user_2), db.session.commit()
+User.query.all(), User.query.all()[0] or User.query.first(), User.query.filter_by(username='Jason').all()
+User.query.filter_by(username='Jason').first()
+user = User.query.filter_by(username='Jason').all()
+user.id
+user = User.query.get(1) # get id of 1
+user.posts # this is actually not a column, but an extra query being run at the post table to find any posts that belongs to this user
+post_1 = Post(title='Blog one',content='First Post Content',user_id=user.id)
+post_2 = Post(title='Blog Two',content='Second Post Content',user_id=user.id)
+db.session.add(post_1), db.session.add(post_2), db.session.commit()
+user.posts
+post = Post.query.first()
+post, post.user_id
+post.author # this wasn't in Post model
+db.drop_all() # delete all
+
+from Intro import db, User, Post
+db.create_all()
+user_1 = User(username='Jason',email='leongjason3781@gmail.com',password='password')
+db.session.add(user_1)
+db.session.commit()
+user = User.query.first()
+post_1 = Post(title='Blog one',content='First Post Content',user_id=user.id)
+post_2 = Post(title='Blog Two',content='Second Post Content',user_id=user.id)
+db.session.add(post_1)
+db.session.add(post_2)
+db.session.commit()
+user.posts
+db.drop_all()
+
+what is enctype='multipart/form-data'
+
+from Intro import Post
+p = Post.query.paginate(per_page=5) # write this in url => "?page=2"
+p.per_page # default is 20
+p.page
+print(i for i in p.items)
+for page in in posts.iter_pages(left_edge=1,right_edge=1,right_current=2,left_current=1): print(page) # none are the ... #
+
+from itsdangerous import TimedJSONWebSignatureSerializer as S
+s = S('secret',30)
+token = s.dumps({'user_id':1}).decode('utf-8')
+token
+s.loads(token) # wait for 30 seconds and do it again
+pip install flask-mail
+_external = True to get absolute url rather than relative url
+
+blueprints and url_for
+
+###############################################
+heroku...pip install gunicorn...touch Procfile...web: gunicorn app:run
+pip freeze > requirements.txt
+heroku login
+heroku create
+heroku apps:destroy <appname> # max is 5 apps
+cat requirements # to see whats inside
+
